@@ -1,0 +1,370 @@
+.board {
+  --bg: #f7f4ee;
+  --ink: #16141a;
+  --sub: #7a7480;
+  --card: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.07);
+  --chip: #ffffff;
+  --chip-border: rgba(0, 0, 0, 0.08);
+  --track: #ebe6dd;
+  --ghost: rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 2px rgba(20, 16, 10, 0.06);
+  --ring: #f7f4ee;
+  --cancel: #efece6;
+  --overlay-bg: #fffdf8;
+
+  min-height: 100vh;
+  padding: 28px 28px 40px;
+  font-family: 'Space Grotesk', Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  transition: background 0.2s, color 0.2s;
+}
+
+.board.dark {
+  --bg: #131118;
+  --ink: #f2eff5;
+  --sub: #9a94a6;
+  --card: #201d28;
+  --card-border: rgba(255, 255, 255, 0.09);
+  --chip: #201d28;
+  --chip-border: rgba(255, 255, 255, 0.1);
+  --track: #2b2734;
+  --ghost: rgba(255, 255, 255, 0.07);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --ring: #131118;
+  --cancel: #2b2734;
+  --overlay-bg: #262232;
+}
+
+.mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sub);
+}
+
+.title {
+  margin: 6px 0 0;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.headerControls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 99px;
+  padding: 9px 15px;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--chip);
+  border: 1px solid var(--chip-border);
+  color: var(--ink);
+}
+
+.themeDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 99px;
+  background: oklch(0.7 0.18 85);
+}
+
+.progress {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border-radius: 99px;
+  padding: 8px 14px;
+  background: var(--chip);
+  border: 1px solid var(--chip-border);
+}
+
+.progressLabel {
+  font-size: 12px;
+  color: var(--sub);
+}
+
+.progressTrack {
+  width: 120px;
+  height: 8px;
+  border-radius: 99px;
+  overflow: hidden;
+  background: var(--track);
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 99px;
+  background: oklch(0.7 0.2 145);
+}
+
+.progressPct {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.avatars {
+  display: flex;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  margin-left: -8px;
+  border-radius: 99px;
+  border: 2px solid var(--ring);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.columns {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  overflow-x: auto;
+  padding: 22px 2px 8px;
+}
+
+.column {
+  flex: 0 0 auto;
+  width: 296px;
+  border-radius: 20px;
+  padding: 14px;
+  border: 2px solid transparent;
+  transition: background 0.18s, border-color 0.18s;
+}
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 4px 12px;
+}
+
+.columnDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+.columnTitle {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.columnCount {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 99px;
+  padding: 3px 9px;
+}
+
+.wipWarning {
+  margin: 0 2px 10px;
+  font-size: 11px;
+  color: oklch(0.55 0.22 25);
+  background: oklch(0.95 0.05 25);
+  border-radius: 10px;
+  padding: 6px 9px;
+}
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 56px;
+}
+
+.card {
+  border-radius: 14px;
+  padding: 14px;
+  cursor: grab;
+  transition: box-shadow 0.15s, transform 0.15s;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.cardTag {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 6px;
+  padding: 3px 7px;
+}
+
+.cardMeta {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.cardId {
+  font-size: 11px;
+  color: var(--sub);
+}
+
+.deleteBtn {
+  border: 0;
+  background: transparent;
+  color: #b7b1ba;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.deleteBtn:hover {
+  color: oklch(0.6 0.22 25);
+}
+
+.cardText {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.cardAvatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 99px;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.cardDue,
+.cardPts {
+  font-size: 11px;
+  color: var(--sub);
+}
+
+.cardPts {
+  margin-left: auto;
+}
+
+.addForm {
+  margin-top: 10px;
+  border-radius: 14px;
+  border: 2px solid;
+  padding: 10px;
+  background: var(--card);
+}
+
+.addInput {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.addActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.addBtn {
+  border: 0;
+  border-radius: 9px;
+  padding: 6px 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+
+.cancelBtn {
+  border: 0;
+  border-radius: 9px;
+  padding: 6px 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  background: var(--cancel);
+  color: var(--sub);
+}
+
+.startAddBtn {
+  margin-top: 10px;
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 9px;
+  background: transparent;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.startAddBtn:hover {
+  background: var(--ghost);
+}
+
+.footer {
+  margin-top: 18px;
+  font-size: 11px;
+  color: var(--sub);
+}
